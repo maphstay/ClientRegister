@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="../static/css/footable.bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
+</head>
+<body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+  <script src="../static/js/footable.min.js"></script>
+  <title>Clients Home</title>
+  <div class="container">
+    <h2>Clientes</h2>
+
+    <a class="btn btn-primary" href="/client/new"><i class="glyphicon glyphicon-plus"></i> Cadastrar</a>
+
+    <table id="tabClientes" class="table table-striped footable">
+    <script type="text/javascript" charset="utf-8">
+      jQuery(document).ready(function($) {
+        let list = []
+          axios.get('http://localhost:3000/api/clients')
+          .then(response => criaListaDinamica(response.data))
+          .catch(error => console.log(error))
+
+        const criaListaDinamica = (clientes) => {
+          clientes.map((cliente, index) => {
+            let items = {};
+              items["id"] = index+1;
+              items["cnpj"] = cliente.CNPJ;
+              items["razao"] = cliente.RS;
+              items["contato"] = cliente.contato
+              items["telefone"] = cliente.telefone
+              items["end"] = cliente.end
+              items["num"] = cliente.num
+              items["comp"] = cliente.comp
+              items["bairro"] = cliente.bairro
+              items["cidade"] = cliente.cidade
+              items["uf"] = cliente.uf
+              items["cep"] = cliente.cep
+              let botEdit = `<a class="btn btn-info btn-xs" href="/client/edit/${index}" role="button"><i class="glyphicon glyphicon-pencil"></i></a>&nbsp;`
+              let botDel = `<form action="/client/delete/${index}" method="POST" style="display: contents;"><button class="btn btn-danger btn-xs" role="button" type="submit"><i class="glyphicon glyphicon-trash"></i></button></form>`
+              items["acao"] = botEdit + botDel
+              list.push(items);
+          })
+          //<a class="btn btn-danger btn-xs" href="/excluir/${index}" role="button"><i class="glyphicon glyphicon-trash"></i></a>
+          $('.table').footable({
+            "paging": {
+              "enabled": true,
+              "delay":500
+            },
+            "filtering": {
+              "enabled": true,
+              "connectors": false
+            },
+            "sorting": {
+             "enabled": true
+            },
+            "showHeader": true,
+            "columns": [
+              { "name": "id", "title": "ID", "visible": false },
+              { "name": "cnpj", "title": "CNPJ" },
+              { "name": "razao", "title": "Razão&nbsp;Social" },
+              { "name": "contato", "title": "Contato", "breakpoints": "xs" },
+              { "name": "telefone", "title": "Telefone", "breakpoints": "xs sm" },
+              { "name": "end", "title": "Endereço", "breakpoints": "xs sm md" },
+              { "name": "num", "title": "Número", "breakpoints": "xs sm md" },
+              { "name": "comp", "title": "Complemento", "breakpoints": "xs sm md" },
+              { "name": "bairro", "title": "Bairro", "breakpoints": "xs sm md" },
+              { "name": "cidade", "title": "Cidade", "breakpoints": "xs sm md" },
+              { "name": "uf", "title": "UF", "breakpoints": "xs sm md" },
+              { "name": "cep", "title": "CEP", "breakpoints": "xs sm md" },
+              { "name": "acao", "title": "Ações" },
+            ],
+            "rows": list
+          })
+        }
+      })
+    </script>
+  </div>
+</body>
+</html>

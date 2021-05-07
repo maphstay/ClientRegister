@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!--[if lt IE 9]>
+  <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <title>Client Alteration</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <h2>Alterar Cadastro</h2>
+    <form action="http://localhost:3000/client/edit/<%= id %>" method="POST">
+
+      <div class="form-row">
+
+        <div class="col-xs-3">
+          <label for="CNPJ" class="control-label">CNPJ</label>
+          <input id="place1" type="text" class="form-control" onkeypress="$(this).mask('00.000.000/0000-00')" placeholder="CNPJ" name="CNPJ" required value="<%= data.CNPJ %>">
+        </div>
+
+        <div class="col-xs-5">
+          <label for="RS" class="control-label">Razão Social</label>
+          <input id="place2" type="text" class="form-control" placeholder="Razão Social" name="RS" required value="<%= data.RS %>">
+        </div>
+
+        <div class="col-xs-4">
+          <label for="contato" class="control-label">Contato</label>
+          <input id="place3" type="text" class="form-control" placeholder="Contato" name="contato" required value="<%= data.contato %>">
+        </div>
+
+      </div>
+      <div class="form-row">
+
+        <div class="col-xs-2">
+          <label for="telefone" class="control-label">Telefone</label>
+          <input id="place4" type="text" class="form-control" onkeypress="$(this).mask('(00) 0 0000-00000')" placeholder="Telefone" name="telefone" required value="<%= data.telefone %>">
+        </div>
+
+        <div class="col-xs-5">
+          <label for="end" class="control-label">Endereço</label>
+          <input id="place5" type="text" class="form-control" placeholder="Endereço" name="end" required value="<%= data.end %>">
+        </div>
+
+        <div class="col-xs-2">
+          <label for="num" class="control-label">Número</label>
+          <input id="place6" type="text" class="form-control" placeholder="Número" name="num" required value="<%= data.num %>">
+        </div>
+
+        <div class="col-xs-3">
+          <label for="comp" class="control-label">Complemento</label>
+          <input type="text" class="form-control" name="comp" placeholder="Complemento" value="<%= data.comp %>">
+        </div>
+
+      </div>
+      <div class="form-row">
+
+        <div class="col-xs-2">
+          <label for="bairro" class="control-label">Bairro</label>
+          <input id="place7" type="text" class="form-control" placeholder="Bairro" name="bairro" required value="<%= data.bairro %>">
+        </div>
+
+        <div class="col-xs-5">
+          <label for="cidade" class="control-label">Cidade</label>
+          <input id="place8" type="text" class="form-control" placeholder="Cidade" name="cidade" required value="<%= data.cidade %>">
+        </div>
+
+        <div class="col-xs-2">
+          <label for="uf" class="control-label">Estado</label>
+          <input id="place9" type="text" class="form-control" placeholder="Estado" name="uf" required value="<%= data.uf %>">
+        </div>
+
+        <div class="col-xs-3">
+          <label for="cep" class="control-label">CEP</label>
+          <input id="place10" type="text" class="form-control" onkeypress="$(this).mask('00.000-000')" placeholder="CEP" name="cep" required value="<%= data.cep %>">
+        </div>
+
+      </div>
+      <div class="form-row">
+        <div class="col-xs-12">
+          <br />
+          <button class="btn btn-primary" type="submit" onclick="edit()">Editar</button>
+          <button class="btn btn-danger"><a href="/clients" style="text-decoration: none; color: white;">Cancelar</a></button>
+          <div id="sucess" class="alert alert-success" role="alert" style="padding: 5px; margin-top: 5rem ; margin-bottom: 0px; text-align: center; display: none;">
+            Alterações realizadas !
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script>
+    function edit() {
+      let place = document.getElementById("place1")
+      for (var i = 1, c = 0; i <= 10; i++) {
+        let place = document.getElementById(`place${i}`) 
+        if (place.value != '' ) {
+            c++
+        }
+      }
+      
+      if (c === 10) {
+        sucess.style.display = "block"
+        setTimeout(() => sucess.style.display = "none", 1000)
+      }
+    }
+    console.log(data)
+  </script>
+</body>
+</html>

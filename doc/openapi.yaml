@@ -1,0 +1,143 @@
+openapi: 3.0.1
+info:
+  title: TeamSoft API Documentation
+  description: >-
+    API for registering customers and consulting the information of customers
+    already registered
+  contact:
+    name: Stefferson
+    url: 'https://lnkd.in/dXRnp7M'
+    email: steffersonthallys@gmail.com
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:3000/'
+tags:
+  - name: Clients
+    description: Operations about client
+paths:
+  /api/clients/:
+    get:
+      tags:
+        - Clients
+      summary: Creates list of with all clients
+      description: Returns a list of clients registered
+      operationId: createClientList
+      responses:
+        '200':
+          description: Sucessfull operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+  /api/client:
+    post:
+      tags:
+      - Clients
+      summary: Create client
+      operationId: createClient
+      requestBody:
+        description: Client object that needs to be added to the list
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        400:
+          description: Fill in all field
+          content: {}
+        default:
+          description: Sucessfull operation
+          content: {}
+      x-codegen-request-body-name: body
+  /api/client/{index}:
+    put:
+      tags:
+      - Clients
+      summary: Updated client
+      operationId: updateClient
+      parameters:
+        - name: index
+          in: path
+          description: The index that needs to be modified
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: This can update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Client'
+        required: true
+      responses:
+        default:
+          description: Sucessfull operation
+          content: {}
+        400:
+          description: Fill in all field
+          content: {}
+        404:
+          description: Client not found
+          content: {}
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - Clients
+      summary: Delete client
+      description: This can delete client register completaly.
+      operationId: deleteClient
+      parameters:
+        - name: index
+          in: path
+          description: The index that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sucessfull operation
+          content: {}
+        '404':
+          description: Client not found
+          content: {}
+components:
+  schemas:
+    Client:
+      required:
+        - CNPJ
+        - RS
+        - contato
+        - telefone
+        - end
+        - num
+        - bairro
+        - cidade
+        - uf
+        - cep
+      type: object
+      properties:
+        CNPJ:
+          type: string
+        RS:
+          type: string
+        contato:
+          type: string
+        telefone:
+          type: string
+        end:
+          type: string
+        num:
+          type: string
+        comp:
+          type: string  
+        bairro:
+          type: string
+        cidade:
+          type: string
+        uf:
+          type: string
+        cep:
+          type: string
