@@ -13,14 +13,14 @@ api.get('/api/clients', (req, res) => {
     return res.json(clientes)
 })
 
-/** CRIAR NOVO CLIENTE */
+/** CREATE NEW CLIENT */
 api.post('/api/client', checkRequire, (req, res) => {
     const cliente = req.body
     clientes.push(cliente)
     return res.json(cliente)
 })
 
-/** ALTERAR UM CLIENTE */
+/** ALTER CLIENT */
 api.put('/api/client/:index', checkRequire, checkClientInArray, (req, res) => {
     const { index } = req.params
     const cliente = req.body
@@ -28,7 +28,7 @@ api.put('/api/client/:index', checkRequire, checkClientInArray, (req, res) => {
     return res.json(cliente)
 })
 
-/** APAGAR UM CLIENTE */
+/** DELETE CLIENT */
 api.delete('/api/client/:index', checkClientInArray, (req, res) => {
     const { index } = req.params
     clientes.splice(index, 1)

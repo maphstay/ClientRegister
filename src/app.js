@@ -12,12 +12,12 @@ app.set('view engine', 'ejs')
 app.set('views', './views')
 app.use('/static', express.static('static'))
 
-/** Routes */
+/** ROUTES */
 import { baseRouter } from './routes/base.js'
 import { api } from './routes/api.js'
 import { crud } from './routes/crud.js'
 
-/** BaseRouter e '/docs' */
+/** BASEROUTER AND '/docs' */
 app.use(`${baseURL}/`, baseRouter)
 app.use(`${baseURL}/`, api)
 app.use(`${baseURL}/`, crud)

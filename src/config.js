@@ -1,7 +1,7 @@
-/** Matriz de Clientes */
+/** ARRAY OF CLIENTS */
 const clientes = []
 
-/** Funções Globais de Validação */
+/** GLOBAL FUNCTIONS AND VALIDATIONS */
 function checkRequire(req, res, next) {
     if (!req.body.CNPJ || !req.body.RS || !req.body.contato || 
         !req.body.telefone || !req.body.end || 

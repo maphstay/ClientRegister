@@ -13,12 +13,12 @@ crud.get('/clients', (req, res) => {
     return res.render('index.ejs')
 })
 
-/** PAGE CADASTRO */
+/** PAGE REGISTER */
 crud.get('/client/new', (req, res) => {
     return res.render('cadastro.ejs')
 })
 
-/** PAGE ALTERAÇÃO */
+/** PAGE ALTERATION */
 crud.get('/client/edit/:index', checkClientInArray, (req, res) => {
     const { index } = req.params;
     const cliente = clientes[index]
@@ -28,14 +28,14 @@ crud.get('/client/edit/:index', checkClientInArray, (req, res) => {
     })
 })
 
-/** CRIAR NOVO CLIENTE */
+/** CREATE NEW CLIENT */
 crud.post('/client/new', checkRequire, (req, res) => {
     const cliente = req.body
     clientes.push(cliente)
     return res.redirect('/clients')
 })
 
-/** ALTERAR UM CLIENTE */
+/** ALTER CLIENT */
 crud.post('/client/edit/:index', checkRequire, checkClientInArray, (req, res) => {
     const { index } = req.params;
     const cliente = req.body
@@ -45,7 +45,7 @@ crud.post('/client/edit/:index', checkRequire, checkClientInArray, (req, res) =>
     }, 2000);
 })
 
-/** APAGAR UM CLIENTE */
+/** DELETE CLIENT */
 crud.post('/client/delete/:index',checkClientInArray, (req, res) => {
     const { index } = req.params;
     clientes.splice(index, 1)
